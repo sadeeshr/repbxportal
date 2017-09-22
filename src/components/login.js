@@ -1,30 +1,73 @@
 import React, { Component } from 'react';
-import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import {Col, FormGroup, FormControl, Form, ControlLabel,Checkbox, Button, Panel} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            loggedin : false
+        };
+    }
+    
+
+    onLogin = (e) => {
+        e.preventDefault();
+        this.setState({loggedin: true});
+        this.loggedin = true;
+        console.log("Login success");
+    }
+
     render() {
-        return (
-            <div>
-                <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href="#">Apayaa PBX 2.0</a>
-                    </Navbar.Brand>
-                </Navbar.Header>
-                <Nav>
-                    <NavItem eventKey={1} href="#">Home</NavItem>
-                    <NavItem eventKey={2} href="#">Login</NavItem>
-                    <NavDropdown eventKey={3} title="more..." id="basic-nav-dropdown">
-                        <MenuItem eventKey={3.1}>About</MenuItem>
-                        <MenuItem eventKey={3.2}>Contact</MenuItem>
-                        <MenuItem eventKey={3.3}>Support</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey={3.4}>Terms&Conditions</MenuItem>
-                    </NavDropdown>
-                </Nav>
-            </Navbar>
-            </div>
-        );
+        if (this.state.loggedin) {
+            console.log("i m logging here");
+            return <Redirect to="/home" />;
+        } else {
+            return (
+                <div>
+                 <Form horizontal>
+                    <Col mdOffset={4} md={4}>
+                    <Panel header="PBX User" bsStyle="info">
+                    <FormGroup controlId="formHorizontalEmail">
+                    <Col componentClass={ControlLabel} md={4}>
+                      UserID
+                    </Col>
+                    <Col md={4}>
+                      <FormControl type="text" placeholder="User ID" />
+                    </Col>
+                  </FormGroup>
+              
+                  <FormGroup controlId="formHorizontalPassword">
+                    <Col componentClass={ControlLabel} md={4}>
+                      Password
+                    </Col>
+                    <Col md={4}>
+                      <FormControl type="password" placeholder="Password" />
+                    </Col>
+                  </FormGroup>
+                   <FormGroup>
+                      <Col mdOffset={4} md={4}>
+                        <Checkbox>Remember me</Checkbox>
+                      </Col>
+                    </FormGroup>
+                
+                    <FormGroup>
+                      <Col mdOffset={4} md={4}>
+                        <Button bsStyle="default" type="submit" onClick={this.onLogin.bind(this)}>
+                          Sign in
+                        </Button>
+                      </Col>
+                    </FormGroup>
+                    </Panel>
+                    </Col>
+                
+                   
+                  </Form>
+                  
+                </div>
+            );
+        }        
     }
 }
 
