@@ -16,7 +16,7 @@ const apreducer = (state, action) => {
             break;   
         }
             
-        case "Connected": {
+        case "CONNECTED": {
             state = {
                 ...state,
                 wsState    :   action.type
@@ -24,14 +24,39 @@ const apreducer = (state, action) => {
             break;
         }
             
-        case "Registered": {
+        case "REGISTERED": {
             state = {
                 ...state,
                 regState    :   action.type
             }
             break;                            
-        }            
+        }   
+        
+        case "TOGGLE_DIALPAD": {
+            state = {
+                ...state,
+                dialpad   :   !state.dialpad
+            }
+            break;
+        }
     
+        case "DIAL": {
+            state = {
+                ...state,
+                incall   :   !state.incall,
+                dialpad  :   !state.dialpad
+            }
+            break;
+        }
+
+        case "HANGUP": {
+            state = {
+                ...state,
+                incall   :   !state.incall
+            }
+            break;
+        }
+
         default:
             break;
     };

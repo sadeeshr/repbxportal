@@ -21,7 +21,7 @@ class Login extends Component {
 
     render() {
         if (this.state.loggedin) {
-            console.log("i m logging here");
+            // console.log("i m logging here");
             return <Redirect to="/home" />;
         } else {
             return (

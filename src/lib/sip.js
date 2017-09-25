@@ -4,30 +4,32 @@ class sipjs {
     constructor() {
         this.userAgent = null;
         this.session = null;
-
+        this.defaultProps = {};
         this.dtmfOpt = {
             'duration': 160,
             'interToneGap': 1200
         };       
     }
 
-    updateStatus = (dispatch, data) => {
-        // console.log(data);
-        return dispatch({
-            type: data
-        });
+    updateStatus = (data) => {
+        console.log(data);
+        // return dispatch({
+        //     type: data
+        // });
+        // this.props.apRegStatus(this.config);
     }
 
-    doConnect = (dispatch, config) => {
-        console.log(dispatch);
+    doConnect = (props, config) => {
+        console.log(props);
+        this.defaultProps = props;
         let ua = new SIP.UA(config);
         this.userAgent = ua;
 //
         ua.start();
-        ua.on('connecting',                   () => this.updateStatus(dispatch, 'Connecting'));
-        ua.on('connected',                    () => this.updateStatus(dispatch, 'Connected'));
-        ua.on('disconnected',                 () => this.updateStatus(dispatch, 'Disconnected'));
-        ua.on('registered',                   () => this.updateStatus(dispatch, 'Registered'));
+        ua.on('connecting',                   () => this.defaultProps.apRegStatus('CONNECTING'));
+        ua.on('connected',                    () => this.defaultProps.apRegStatus('CONNECTED'));
+        ua.on('disconnected',                 () => this.defaultProps.apRegStatus('DISCONNECTED'));
+        ua.on('registered',                   () => this.defaultProps.apRegStatus('REGISTERED'));
         ua.on('unregistered',       (res, cause) => this.updateStatus(cause));
         ua.on('registrationFailed', (res, cause) => this.updateStatus(cause));
         ua.on('invite',                     sess => this.updateStatus(sess));

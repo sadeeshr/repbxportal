@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import {  Grid, Row, Col } from 'react-bootstrap';
 import Sidebar from './sidebar';
 import Dialer from './dialer';
+import ProgressView from './progress';
+
 import SIP from 'sip.js'
 // import sip from '../lib/sip';
 import * as Actions from '../actions';
@@ -37,16 +41,16 @@ class Home extends Component {
         }
     }
 
-    
     componentWillMount() {
         
     }
 
     render() {
-        console.log('Props: ', this.props);
+        // console.log('Props: ', this.props);
+        // console.log('Props Children: ', this.props.children);
         if (!this.props.wsState) {
             console.log("WS not connected, connecting now.");
-            this.props.apConnect(this.config);
+            this.props.apConnect(this.props, this.config);
         }        
         return (
             <div>
@@ -59,6 +63,7 @@ class Home extends Component {
                 <Row>
                   <Col md={2}><Sidebar /></Col>
                   <Col md={10}><Dialer /></Col>
+                  <Col md={10}><ProgressView pstyle={this.props.regState?"info":"success"} active={!this.props.regState} label={this.props.regState?this.props.regState:"REGISTERING"} now={this.props.regState?100:50}/></Col>
                 </Row>   
             </Grid>
             </div>
@@ -75,5 +80,6 @@ const mapActionsToProps = (dispatch) => {
     console.log("Actions: ", Actions);
     return bindActionCreators(Actions, dispatch);
 };
+
 
 export default connect(mapStateToProps, mapActionsToProps) (Home);
