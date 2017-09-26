@@ -63,7 +63,8 @@ class Home extends Component {
                 <Row>
                   <Col md={2}><Sidebar /></Col>
                   <Col md={10}><Dialer /></Col>
-                  <Col md={10}><ProgressView pstyle={this.props.regState?"info":"success"} active={!this.props.regState} label={this.props.regState?this.props.regState:"REGISTERING"} now={this.props.regState?100:50}/></Col>
+                  <Col mdOffset={2} md={6}><ProgressView pstyle={this.props.wsState?"warning":"danger"} active={!this.props.wsState} label={this.props.wsState?this.props.wsState:"CONNECTING"} now={this.props.wsState?100:50}/></Col>
+                  <Col mdOffset={2} md={6}><ProgressView pstyle={this.props.regState?"info":"success"} active={!this.props.regState} label={this.props.regState?this.props.regState:"REGISTERING"} now={this.props.regState?100:50}/></Col>
                 </Row>   
             </Grid>
             </div>

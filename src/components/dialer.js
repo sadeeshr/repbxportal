@@ -18,7 +18,7 @@ class Dialer extends Component {
                 <Grid>
                     <Row>
                         <Col md={1}>
-                            <Button bsStyle="success" bsSize="large" onClick={this.props.toggleDialpad}><Glyphicon glyph="earphone" /></Button>
+                            <Button bsStyle="success" bsSize="large" onClick={this.props.toggleDialpad}><Glyphicon glyph="th"/></Button>
                         </Col>                
                     </Row>
                 </Grid>
@@ -29,7 +29,7 @@ class Dialer extends Component {
                         <Dialpad dialFunc={this.props.apDial}/>            
                 </Modal.Body>
             </Modal>
-            <Modal bsSize="sm" show={this.props.incall} onHide={this.props.toggleDialpad}>
+            <Modal bsSize="sm" show={!this.props.incall} onHide={this.props.toggleDialpad}>
                 <Modal.Body>
                         <Incall hangupFunc={this.props.apHangup}/>            
                 </Modal.Body>
